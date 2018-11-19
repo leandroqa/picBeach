@@ -33,12 +33,12 @@ class Beach extends Model
 
     public function reviews()
     {
-        return $this->hasMany(review::class);
+        return $this->hasMany(Review::class);
     }
 
     public function pics()
     {
-        return $this->hasMany(pic::class);
+        return $this->hasMany(Pic::class);
     }
 
 
