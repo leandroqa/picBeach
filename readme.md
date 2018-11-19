@@ -2,6 +2,10 @@
 
 API to get featured images from beaches destinations and review them.
 
+## Install
+
+    After cloning this repository, run the migrations (php artisan migrate) and seeds (php artisan db:seed).
+
 ## Available locations  
 
 In this demo version are available some brazilians beaches classified by regions and beach slug name. It is still possible to read an post reviews about the pics.

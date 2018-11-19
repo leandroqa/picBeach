@@ -11,6 +11,31 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/', function () use ($router) {    
+    return redirect()->route('index');
 });
+
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+
+    $router->get('', ['as' => 'index', function () {
+        return view('index');
+    }]);
+
+    $router->get('regions', [
+        'as' => 'regions', 'uses' => 'BeachController@getAllRegions'
+    ]);
+
+    $router->get('beaches',  ['uses' => 'BeachController@getAllBeaches']);
+
+    $router->get('beaches/{region}',  ['uses' => 'BeachController@getBeachesByRegion']);
+
+    $router->get('beaches/{region}/{name}',  ['uses' => 'BeachController@getBeach']);
+    
+    $router->get('beaches/{region}/{name}/review/{id}',  ['uses' => 'BeachController@getReview']);
+       
+    $router->post('beaches/{region}/{name}/review', ['uses' => 'BeachController@create']);
+        
+    $router->put('beaches/{region}/{name}/reviews/{id}', ['uses' => 'BeachController@update']);
+
+  });
