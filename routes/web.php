@@ -11,15 +11,20 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    //return $router->app->version();    
-    return "Praiaboa picBeach API";
+$router->get('/', function () use ($router) {    
+    return redirect()->route('index');
 });
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
-    $router->get('regions',  ['uses' => 'BeachController@getAllRegions']);
+    $router->get('', ['as' => 'index', function () {
+        return view('index');
+    }]);
+
+    $router->get('regions', [
+        'as' => 'regions', 'uses' => 'BeachController@getAllRegions'
+    ]);
 
     $router->get('beaches',  ['uses' => 'BeachController@getAllBeaches']);
 

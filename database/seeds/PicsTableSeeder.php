@@ -11,10 +11,10 @@ class PicsTableSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('beaches')->insert([
+        /* DB::table('beaches')->insert([
             "beach_id" => "",
             "url" => ""            
-        ]);
+        ]);*/
 
 
 
