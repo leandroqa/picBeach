@@ -38,7 +38,7 @@ Coming soon.
 
 ## PUT
 
-    /api/beaches/RN/natal/reviews/1  - Update a review
+    /api/beaches/RN/natal/review/1  - Update a review
 
 ## DELETE
 

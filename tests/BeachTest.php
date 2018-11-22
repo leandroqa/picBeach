@@ -11,6 +11,10 @@ class BeachTest extends TestCase
         $this->assertContains(
             'natal', $this->response->getContent()
         );
+
+        $response = $this->call('GET', '/api/beaches');
+        $this->assertEquals(200, $response->status());  
+
     }
 
     public function testGetAllRegions()
@@ -19,6 +23,10 @@ class BeachTest extends TestCase
         $this->assertContains(
             'SP', $this->response->getContent()
         );
+        
+        $response = $this->call('GET', '/api/regions');
+        $this->assertEquals(200, $response->status());  
+
     }
 
     public function testGetBeachesByRegion()
@@ -52,12 +60,26 @@ class BeachTest extends TestCase
         );
     }
 
+    public function testPostReview()
+    {
+        $response = $this->call('POST', '/api/beaches/RJ/rio_de_janeiro/review', ['review' => 'Wonderful city.','name' => 'rio_de_janeiro', 'region' => 'RJ']);      
+        $this->assertEquals(201, $response->status());        
 
+        $response = $this->call('POST', '/api/beaches/SP/rio_de_janeiro/review', ['review' => 'Wonderful city.','name' => 'rio_de_janeiro', 'region' => 'SP']);
+        $this->assertEquals(400, $response->status());  
+        
+    }   
 
-    /*$this->json('GET', '/api/beaches', ['name' => 'Sally'])
-            ->seeJson([
-            'created' => true,
-            ]);*/        
+    public function testPutReview()
+    {
+        $response = $this->call('PUT', '/api/beaches/RJ/rio_de_janeiro/review/1', ['review' => 'Wonderful city.','name' => 'rio_de_janeiro', 'region' => 'RJ','id' => 1]);      
+        $this->assertEquals(501, $response->status());  
+    }   
 
+    public function testGetReview()
+    {
+        $response = $this->call('GET', '/api/beaches/RN/natal/review/1');      
+        $this->assertEquals(501, $response->status());  
+    } 
 
 }
