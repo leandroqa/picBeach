@@ -18,7 +18,7 @@ API to get featured images from beaches destinations and review them.
 
 <h3>PUT</h3>
     <pre>
-    /api/beaches/RN/natal/reviews/1  - Update a review
+    /api/beaches/RN/natal/review/1  - Update a review
     </pre>
 
 <h3>DELETE</h3>

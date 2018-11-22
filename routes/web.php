@@ -36,6 +36,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
        
     $router->post('beaches/{region}/{name}/review', ['uses' => 'BeachController@create']);
         
-    $router->put('beaches/{region}/{name}/reviews/{id}', ['uses' => 'BeachController@update']);
+    $router->put('beaches/{region}/{name}/review/{id}', ['uses' => 'BeachController@update']);
 
   });
