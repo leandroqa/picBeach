@@ -34,14 +34,13 @@ class BeachController extends Controller
     
     public function getReview($region,$name,$id)
     {
-        //join region x beach x name
+        //join region x beach x name        
         //return response()->json(Review::where('id',$id)->first());
         return response()->json('Not implemented yet.',501);
     }
 
     public function create(Request $request)
     {
-        //request: name, review
         try{
             $beach = Beach::where('name',$request->name)->where('region_name',$request->region)->firstOrFail();            
             $review = Review::create(['beach_id' => $beach->id, 'review' => $request->input('review')]);
@@ -54,13 +53,25 @@ class BeachController extends Controller
         return response()->json("Review created for $request->name.",201);            
     }
 
-    public function update($id, Request $request)
-    {
-        //$review = Review::findOrFail($id);
-        //$review->update($request->all());
-        //returns the region and name of the beach's review updated
-        //return response()->json($review, 200);
-        return response()->json('Not implemented yet.',501);
+    public function update($region, $name, $id, Request $request)
+    {        
+        try{
+            $beach = Beach::where('name',$request->name)->where('region_name',$request->region)->firstOrFail();                                   
+            $review = Review::where('id',$id)->where('beach_id',$beach->id)->first();
+            if($review)
+            {
+                $review->update(['review' => $request->review]);                
+            }
+            else {                
+                throw new \Exception('Review not found.');     
+            }            
+        }
+        catch(\Exception $e)
+        {            
+            $error = $e->getMessage();
+            return response()->json("Error on updating the review: $error",400);
+        }
+        return response()->json("Review for $name / $region updated successfuly.",200);                    
     }
 
    
