@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call('RegionsTableSeeder');
         $this->call('BeachesTableSeeder');
         $this->call('PicsTableSeeder');
+        $this->call('ReviewsTableSeeder');
     }
 }

@@ -67,28 +67,31 @@ class BeachTest extends TestCase
 
         $response = $this->call('POST', '/api/beaches/SP/rio_de_janeiro/review', ['review' => 'Wonderful city.','name' => 'rio_de_janeiro', 'region' => 'SP']);
         $this->assertEquals(400, $response->status());  
+
+        $response = $this->call('POST', '/api/beaches/RJ/ilha_bela/review', ['review' => 'Wonderful city.','name' => 'ilha_bela', 'region' => 'RJ']);
+        $this->assertEquals(400, $response->status());  
         
     }   
 
     public function testPutReview()
     {
         //assert review exists
-        //$response = $this->call('GET', '/api/beaches/RN/natal/review/1');      
-        //$this->assertEquals(200,$response->status());
+        $response = $this->call('GET', '/api/beaches/RN/natal/review/1');      
+        $this->assertEquals(200,$response->status());
 
         //assert can not update a review which beach and region do not belong to
         $response = $this->call('PUT', '/api/beaches/RJ/natal/review/1',
-            ['review' => 'Natal is smaler than Rio de janeiro!','name' => 'natal', 'region' => 'RJ','id' => 1]);      
+            ['review' => 'Natal is smaller than Rio de janeiro!','name' => 'natal', 'region' => 'RJ','id' => 1]);      
         $this->assertEquals(400,$response->status());
         $response = $this->call('PUT', '/api/beaches/RN/ilha_bela/review/1',
-            ['review' => 'Natal is smaler than Rio de janeiro!','name' => 'ilha_bela', 'region' => 'RN','id' => 1]);      
+            ['review' => 'Natal is smaller than Rio de janeiro!','name' => 'ilha_bela', 'region' => 'RN','id' => 1]);      
         $this->assertEquals(400,$response->status());
         $response = $this->call('PUT', '/api/beaches/SP/ilha_bela/review/1',
-            ['review' => 'Natal is smaler than Rio de janeiro!','name' => 'ilha_bela', 'region' => 'SP','id' => 1]);            
+            ['review' => 'Natal is smaller than Rio de janeiro!','name' => 'ilha_bela', 'region' => 'SP','id' => 1]);            
         $this->assertEquals(400,$response->status());
 
         //update
-        $response = $this->call('PUT', '/api/beaches/RN/natal/review/1', ['review' => 'Natal is smaler than Rio de janeiro!','name' => 'natal', 'region' => 'RN','id' => 1]);      
+        $response = $this->call('PUT', '/api/beaches/RN/natal/review/1', ['review' => 'Natal is smaller than Rio de janeiro!','name' => 'natal', 'region' => 'RN','id' => 1]);      
         $this->assertEquals(200,$response->status());
 
     }   
@@ -96,7 +99,16 @@ class BeachTest extends TestCase
     public function testGetReview()
     {
         $response = $this->call('GET', '/api/beaches/RN/natal/review/1');      
-        $this->assertEquals(501, $response->status());  
+        $this->assertEquals(200, $response->status());
+        
+        $response = $this->call('GET', '/api/beaches/SP/natal/review/1');      
+        $this->assertEquals(404, $response->status());
+         
+        $response = $this->call('GET', '/api/beaches/RN/santos/review/1');      
+        $this->assertEquals(404, $response->status());       
+         
+        $response = $this->call('GET', '/api/beaches/RN/natal/review/2');      
+        $this->assertEquals(404, $response->status());
     } 
 
 }
