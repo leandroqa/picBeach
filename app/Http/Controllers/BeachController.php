@@ -34,9 +34,19 @@ class BeachController extends Controller
     
     public function getReview($region,$name,$id)
     {
-        //join region x beach x name        
-        //return response()->json(Review::where('id',$id)->first());
-        return response()->json('Not implemented yet.',501);
+        try{
+            $beach = Beach::where('name',$name)->where('region_name',$region)->firstOrFail();            
+            $review = Review::where('beach_id',$beach->id)->where('id',$id)->firstOrFail();
+            if(! $review)
+            {
+                return response()->json("Review not found.",404);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json("Review not found.",404);
+        }
+        return response()->json(['region' => $region, 'beach' => $name, 'review' => $review->review],200);        
     }
 
     public function create(Request $request)
