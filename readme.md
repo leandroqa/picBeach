@@ -2,6 +2,8 @@
 
 API to get featured images from beaches destinations and review them.
 
+<a href="http://praiaboa.com.br/picbeach" target="new">http://praiaboa.com.br/picbeach</a>
+
 ## Install
 
     After cloning this repository, run the migrations (php artisan migrate) and seeds (php artisan db:seed).
